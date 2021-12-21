@@ -1,26 +1,19 @@
-import { InferGetStaticPropsType } from 'next';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
-import getAllProducts from '../utils/FetchTrainning';
-
-export const getStaticProps = async () => {
-  const posts = await getAllProducts();
-
-  return {
-    props: {
-      posts,
-    },
-  };
-};
-
-const Index = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  // const router = useRouter();
-
+export default function Component() {
+  const { data: session } = useSession();
+  if (session) {
+    return (
+      <>
+        Signed in as {session?.user?.email} <br />
+        <button onClick={() => signOut()}>Sign out</button>
+      </>
+    );
+  }
   return (
     <>
-      <p>Eita</p>
-      <p>{JSON.stringify(posts)}</p>
+      Not signed in <br />
+      <button onClick={() => signIn()}>Sign in</button>
     </>
   );
-};
-
-export default Index;
+}

@@ -12,7 +12,7 @@ export default async function getUsers(
     const cursor = db.collection('users').find({});
 
     const data = await cursor.toArray();
-    // console.table(data);
+    console.table(data);
     res.status(200).json(data);
   }
 }

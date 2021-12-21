@@ -9,6 +9,6 @@ export async function connect() {
     const db = client.db('test');
     return { db, client };
   } finally {
-    // console.log("conectado mané")
+    console.log('conectado mané');
   }
 }
